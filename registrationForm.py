@@ -79,7 +79,7 @@ valid_phoneNo = window.register(validate_phoneNo) # create a var named valid_pho
 #     b. validateCommand (what function to call): validate_phoneNo
 #     c. invalid comment (optional)
 """%P, or percentage specifier, is used to pass inputs into our callback function."""
-entry_phoneNo.config(validate="key", validateCommand=(valid_phoneNo, '%P'))
+# entry_phoneNo.config(validate="key", validateCommand=(valid_phoneNo, '%P'))
 
 """EMAIL"""
 #Step1: Function for validation of email:
@@ -87,23 +87,23 @@ def validate_email(userEmail):
     if len(userEmail) < 8:
         messagebox.showinfo('Oops!', 'This is not a valid email.')
     else:
-        if re.match('^[_a-z0-9-] + (\.[_a-z0-9-])*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z](2,4))$', userEmail) != None:
-            return True
-        else:
-            messagebox.showinfo('Oops!', 'This is not a valid email.')
-            return False
+        # if re.match('^[_a-z0-9-] + (\.[_a-z0-9-])*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z](2,4))$', userEmail) != None:
+        #     return True
+        # else:
+        #     messagebox.showinfo('Oops!', 'This is not a valid email.')
+        return False
 lb_email = Label(window, text="Email:", width=10, font=('normal', 10), bg='light green')
 lb_email.place(x=80, y=290)
 entry_email = Entry(window, textvariable=v_email)
 entry_email.place(x=240, y=290)
 
 """GENDER"""
-lb_gender = Label(window, text="Gender:", width=10, font=('normal', 10), bg='light orange')
+lb_gender = Label(window, text="Gender:", width=10, font=('normal', 10), bg='orange')
 lb_gender.place(x=80, y=330)
 # Create radio button (the circle button):
-Radiobutton(window, text='Male', bg='light orange', padx=5, variable=v_gender, value=1).place(x=230, y=330)
-Radiobutton(window, text='Female', bg='light orange', padx=5, variable=v_gender, value=2).place(x=290, y=330)
-Radiobutton(window, text="Other", bg='light orange', padx=5, variable=v_gender, value=3).place(x=350, y=330)
+Radiobutton(window, text='Male', bg='orange', padx=5, variable=v_gender, value=1).place(x=230, y=330)
+Radiobutton(window, text='Female', bg='orange', padx=5, variable=v_gender, value=2).place(x=290, y=330)
+Radiobutton(window, text="Other", bg='orange', padx=5, variable=v_gender, value=3).place(x=350, y=330)
 
 """COUNTRY"""
 lb_country = Label(window, text="Country:", width=10, font=('normal', 10), bg='light cyan')
@@ -143,26 +143,33 @@ def validateAllFields():
         messagebox.showinfo('You forget something...', 'Please enter your password.')
     elif v_confirm_psw.get() == '':
         messagebox.showinfo('You forget something...', 'Please confirm your password.')
-    elif v_passWord != v_confirm_psw.get():
+    elif v_passWord.get() != v_confirm_psw.get():
         messagebox.showinfo('Oops!', 'Password not match.')
+    elif v_email.get() == "":
+        messagebox.showinfo('You forget something...', 'Please enter your email address.')
     elif v_phoneNo.get() == '':
         messagebox.showinfo('You forget something...', 'Please enter your phone number.')
-    elif len(v_phoneNo.get()) != 10:
-        messagebox.showinfo('Oops!', 'Your phone number is not valid.')
-    elif v_email.get() == '':
-        messagebox.showinfo('You forget something...', 'Please enter your email address.')
-    elif v_gender.get() == '':
+    elif v_gender.get() != 1 and v_gender.get() != 2 and v_gender.get() != 3:
         messagebox.showinfo('You forget something...', 'Please choose your gender.')
     elif v_country.get() == '' or v_country.get() == 'Select your country.':
         messagebox.showinfo('You forget something...', 'Please choose your country.')
     elif skill1.get() == 0 and skill2.get() == 0 and skill3.get() == 0:
         messagebox.showinfo('You forget something...', 'Please choose your skill(s).')
+    # elif v_phoneNo.get() != '':
+    #     isValidphoneNo = validate_phoneNo(v_phoneNo.get())
+    #     if isValidphoneNo:
+    #         return True
+    #     else:
+    #         messagebox.showinfo('Oops!', 'Your phone number is not valid.')
+    elif len(v_phoneNo.get()) != 10:
+        messagebox.showinfo('Oops!', 'Your phone number is not valid.')
     elif v_email.get() != '':
         valid_Email = validate_email(v_email.get())
         if valid_Email:
             messagebox.showinfo('Congratulation!', 'You have registered succesfully!')
     else:
         messagebox.showinfo('Congratulation!', 'You have registered succesfully!')
+
 
 def clearAllFields():
     v_fullName.set("")
@@ -176,11 +183,12 @@ def callNewScreen():
     os.system('LoginScreen.py') # use os.system('LoginScreen.py') in the same file
                                       # if not, use os.system('python LoginScreen.py')
 
-btn_register = Button(window, text='REGISTER', command=validateAllFields, bg='deep pink', fg='white',
+btn_register = Button(window, text='REGISTER', command=validateAllFields, bg='deep pink', fg='black',
                     font=('bold', 10)).place(x=150, y=450)
-btn_clear = Button(window, text="CLEAR ALL", command=clearAllFields, bg='deep pink', fg='white',
+btn_clear = Button(window, text="CLEAR ALL", command=clearAllFields, bg='deep pink', fg='black',
                    font=('bold', 10)). place(x=250, y=450)
-btn_alrUser = Button(window, text="ALREADY AN USER?", command=callNewScreen, bg='deep pink', fg='white',
+btn_alrUser = Button(window, text="ALREADY AN USER?", command=callNewScreen, bg='deep pink', fg='black',
                      font=('bold', 10)).place(x=350, y=450)
 
 
+window.mainloop() # call the function endlessly until the user closes it
