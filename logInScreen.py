@@ -21,7 +21,7 @@ lb_heading = Label(window, text="Log In", width=30, font=('bold', 30), bg='light
 lb_heading.place(x=-40, y=53) # set the position of the heading (RECHECK)
 
 """FULL NAME"""
-lb_fullName = Label(window, text="Full Name:", width=15, font=('normal', 15), bg='light yellow')
+lb_fullName = Label(window, text="Full Name:", width=15, font=('normal', 15), bg='salmon2')
 lb_fullName.place(x=80, y=150)
 # In order to create a box for the users to type in input, we need Entry:
 entry_fullName = Entry(window, textvariable=v_fullName)
@@ -30,7 +30,7 @@ entry_fullName.place(x=240, y=150)
 """PASSWORD"""
 lb_passWord = Label(window, text="Password:", width=15, font=('normal', 15), bg='salmon2')
 lb_passWord.place(x=80, y=200)
-entry_passWord = Entry(window, textvariable=v_passWord)
+entry_passWord = Entry(window, textvariable=v_passWord, show='*')
 entry_passWord.place(x=240, y=200)
 
 """Function to validate users' credentials:"""
@@ -59,8 +59,7 @@ def clearAllFields():
 """Function to open a new screen:"""
 def callNewScreen():
     window.destroy()
-    os.system('registrationForm.py') # use os.system('registrationForm.py') in the same file
-                                            # if not, use os.system('python registrationForm.py')
+    os.system('python registrationForm.py')
 
 """Create 3 buttons at the bottom of the form:"""
 btn_login = Button(window, text='Login', command=validateAllFields, bg='deep pink', fg='black', font=('bold', 15)).\
@@ -70,4 +69,4 @@ btn_clear = Button(window, text='Clear All', command=clearAllFields, bg='deep pi
 btn_register = Button(window, text='Register', command=callNewScreen, bg='deep pink', fg='black', font=('bold', 15)).\
     place(x=300, y=280)
 
-window.mainloop() # call the function endlessly until the user closes it
+window.mainloop() # call the function endlessly so that the window remains open until the user closes it
